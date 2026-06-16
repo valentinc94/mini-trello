@@ -185,10 +185,10 @@ export const KanbanBoard: React.FC<KanbanBoardProps> = ({ project, user, initial
       </div>
 
       {/* Board Header / Filters */}
-      <div className="flex items-center gap-4 mb-6 px-2">
-        <div className="flex items-center gap-2">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-4 sm:mb-6 px-2">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2">
           <span className="text-xs font-bold text-slate-400 uppercase tracking-wider pl-1">Filter by member:</span>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <button
               onClick={() => setFilterUserId(null)}
               className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
@@ -219,11 +219,11 @@ export const KanbanBoard: React.FC<KanbanBoardProps> = ({ project, user, initial
         </div>
       </div>
 
-      <div className="flex gap-6 h-full items-start overflow-x-auto pb-8 px-2 w-full snap-x">
+      <div className="flex gap-4 sm:gap-6 h-full items-start overflow-x-auto pb-8 px-2 w-full snap-x snap-mandatory touch-pan-x">
         {COLUMNS.map((column) => (
         <div
           key={column.id}
-          className="flex-shrink-0 w-[340px] bg-slate-100/50 rounded-2xl p-3.5 flex flex-col max-h-[85vh] snap-center"
+          className="flex-shrink-0 w-[280px] sm:w-[340px] bg-slate-100/50 rounded-2xl p-3 sm:p-3.5 flex flex-col max-h-[85vh] snap-center"
           onDragOver={handleDragOver}
           onDrop={(e) => handleDrop(e, column.id)}
         >

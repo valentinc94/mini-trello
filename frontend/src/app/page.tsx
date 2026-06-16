@@ -79,15 +79,15 @@ export default async function DashboardPage() {
 
   return (
     <SidebarLayout user={user} title="Projects Dashboard">
-      <div className="p-6 lg:p-8 max-w-[1600px] mx-auto animate-in fade-in duration-300">
-        <div className="flex justify-between items-center mb-8">
+      <div className="p-4 sm:p-6 lg:p-8 max-w-[1600px] mx-auto animate-in fade-in duration-300">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8">
           <div>
-            <h2 className="text-2xl font-bold text-slate-900 tracking-tight">Welcome back, {user.first_name || user.username}!</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">Welcome back, {user.first_name || user.username}!</h2>
             <p className="text-slate-500 mt-1 text-sm">Here&apos;s an overview of your active projects.</p>
           </div>
           <Link 
             href="/?new-project=true"
-            className="bg-blue-600 text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-blue-700 transition-all shadow-[0_4px_12px_rgba(37,99,235,0.1)] hover:shadow-[0_4px_16px_rgba(37,99,235,0.2)] active:scale-95 flex items-center gap-2"
+            className="bg-blue-600 text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-blue-700 transition-all shadow-[0_4px_12px_rgba(37,99,235,0.1)] hover:shadow-[0_4px_16px_rgba(37,99,235,0.2)] active:scale-95 flex items-center justify-center sm:justify-start gap-2 w-full sm:w-auto"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
@@ -97,7 +97,7 @@ export default async function DashboardPage() {
         </div>
 
         {/* Metrics Row */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mb-8">
           <div className="bg-white p-6 rounded-[24px] border border-slate-100/80 shadow-[0_8px_30px_rgb(0,0,0,0.01)] flex items-center gap-4">
             <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600 shadow-[0_4px_12px_rgba(37,99,235,0.05)]">
               <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" /></svg>

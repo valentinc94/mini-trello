@@ -51,7 +51,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
     <SidebarLayout user={user} title={project.name}>
       <div className="flex flex-col h-full bg-slate-50/50 animate-in fade-in duration-300">
         {/* Kanban Board Container */}
-        <div className="flex-1 overflow-x-auto px-6 sm:px-8 pb-8 pt-4">
+        <div className="flex-1 overflow-auto px-3 sm:px-6 lg:px-8 pb-8 pt-4">
           <KanbanBoard project={project} user={user} initialTasks={tasks} />
         </div>
       </div>

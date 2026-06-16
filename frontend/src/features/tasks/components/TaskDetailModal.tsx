@@ -125,14 +125,14 @@ export const TaskDetailModal: React.FC<TaskDetailModalProps> = ({
 
   return (
     <>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm transition-opacity animate-in fade-in duration-200">
+      <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4 bg-slate-900/40 backdrop-blur-sm transition-opacity animate-in fade-in duration-200">
         <div 
-          className="bg-white rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.02)] w-full max-w-5xl h-[80vh] flex flex-col border border-slate-100 animate-in zoom-in-95 duration-200"
+          className="bg-white rounded-t-[24px] sm:rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.02)] w-full max-w-5xl h-[92vh] sm:h-[80vh] flex flex-col border border-slate-100 animate-in zoom-in-95 duration-200"
           role="dialog"
           aria-modal="true"
         >
           {/* Header */}
-          <div className="px-6 py-4 flex justify-between items-center border-b border-slate-100 shrink-0">
+          <div className="px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center border-b border-slate-100 shrink-0">
             <div className="flex items-center gap-4">
               <span className="text-slate-500 font-mono text-sm font-semibold flex items-center gap-2">
                 <svg className="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -164,9 +164,9 @@ export const TaskDetailModal: React.FC<TaskDetailModalProps> = ({
           </div>
           
           {/* Main Content Area - 2 Columns */}
-          <div className="flex flex-1 overflow-hidden">
+          <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
             {/* Left Column - Main Content */}
-            <div className="flex-1 p-8 overflow-y-auto">
+            <div className="flex-1 p-4 sm:p-8 overflow-y-auto">
               <input 
                 type="text" 
                 value={title} 
@@ -196,7 +196,7 @@ export const TaskDetailModal: React.FC<TaskDetailModalProps> = ({
             </div>
 
             {/* Right Column - Metadata */}
-            <div className="w-80 bg-slate-50/50 border-l border-slate-100 p-6 overflow-y-auto flex flex-col gap-5 shrink-0">
+            <div className="w-full md:w-80 bg-slate-50/50 border-t md:border-t-0 md:border-l border-slate-100 p-4 sm:p-6 overflow-y-auto flex flex-col gap-5 shrink-0">
               
               {/* STATUS SELECT */}
               <div className="space-y-1.5 relative">
