@@ -1,0 +1,61 @@
+version: '3.8'
+
+networks:
+  mini_trello_net:
+    driver: bridge
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - mini_trello_net
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+    volumes:
+      - ./backend:/app/backend
+    command: >
+      sh -c "
+      python manage.py migrate &&
+      python manage.py seed &&
+      python manage.py runserver 0.0.0.0:8000
+      "
+    networks:
+      - mini_trello_net
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - mini_trello_net
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - mini_trello_net
+
+volumes:
+  postgres_data:
