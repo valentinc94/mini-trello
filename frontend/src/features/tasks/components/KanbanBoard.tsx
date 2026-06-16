@@ -135,9 +135,8 @@ export const KanbanBoard: React.FC<KanbanBoardProps> = ({ project, user, initial
     setIsDeletingProject(true);
     try {
       await ProjectService.deleteProject(project.id);
-      showSuccess("Project deleted");
       setShowDeleteProjectConfirm(false);
-      router.push("/");
+      router.push("/?deleted=true");
       router.refresh();
     } catch (err: any) {
       showError(err.message || "Failed to delete project");

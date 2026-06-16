@@ -3,6 +3,7 @@ import { ProjectServerService } from "@/services/project.server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { SidebarLayout } from "@/components/layout/SidebarLayout";
+import { ProjectCard } from "@/features/projects/components/ProjectCard";
 
 export const dynamic = "force-dynamic";
 
@@ -144,44 +145,7 @@ export default async function DashboardPage() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {projectsWithStats.map((project) => (
-              <Link key={project.id} href={`/projects/${project.id}`}>
-                <div className="group bg-white rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.01)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.03)] hover:-translate-y-0.5 transition-all duration-300 border border-slate-100/80 p-6 flex flex-col h-full cursor-pointer">
-                  <div className="flex justify-between items-start mb-4">
-                    <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 group-hover:scale-105 transition-transform shadow-[0_4px_12px_rgba(37,99,235,0.03)]">
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
-                      </svg>
-                    </div>
-                  </div>
-                  <h3 className="text-base font-bold text-slate-900 mb-1.5 line-clamp-1">{project.name}</h3>
-                  <p className="text-xs text-slate-500 flex-grow mb-6 line-clamp-2 leading-relaxed">
-                    {project.description}
-                  </p>
-                  
-                  <div className="mt-auto">
-                    {/* Progress Bar */}
-                    <div className="w-full bg-slate-100 rounded-full h-1.5 mb-4 overflow-hidden">
-                      <div className="bg-blue-600 h-1.5 rounded-full transition-all duration-500" style={{ width: `${project.progress}%` }}></div>
-                    </div>
-                    
-                    <div className="flex justify-between items-center text-[10px] font-semibold text-slate-400">
-                      <span>{project.progress}% completed ({project.completedTasksCount}/{project.tasksCount} tasks)</span>
-                      <div className="flex -space-x-1.5">
-                        {project.assignees.slice(0, 3).map((assignee, idx) => (
-                          <div 
-                            key={assignee.id}
-                            className={`w-5 h-5 rounded-full border border-white bg-blue-100 text-blue-700 flex items-center justify-center text-[9px] font-bold`}
-                            style={{ zIndex: 3 - idx }}
-                            title={assignee.username}
-                          >
-                            {assignee.username.charAt(0).toUpperCase()}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Link>
+              <ProjectCard key={project.id} project={project} currentUser={user} />
             ))}
           </div>
         )}

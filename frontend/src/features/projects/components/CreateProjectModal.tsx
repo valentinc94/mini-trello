@@ -24,9 +24,9 @@ export const CreateProjectModal: React.FC<CreateProjectModalProps> = ({ onClose,
 
     try {
       await ProjectService.createProject(name, description);
+      onClose();
       router.refresh();
       if (onSuccess) onSuccess();
-      onClose();
     } catch (err: any) {
       setError(err.message || "Failed to create project.");
     } finally {

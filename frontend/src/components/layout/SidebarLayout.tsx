@@ -6,6 +6,7 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { User } from "@/types/models";
 import { LogoutButton } from "@/features/auth/components/LogoutButton";
 import { CreateProjectModal } from "@/features/projects/components/CreateProjectModal";
+import { Toast } from "@/components/ui/Toast";
 
 interface SidebarLayoutProps {
   children: React.ReactNode;
@@ -18,6 +19,7 @@ const SidebarLayoutContent: React.FC<SidebarLayoutProps> = ({ children, user, ti
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [toastMessage, setToastMessage] = useState<{msg: string, type: 'success'|'error'} | null>(null);
   
   const isCreateProjectOpen = searchParams.get("new-project") === "true";
 
@@ -34,6 +36,19 @@ const SidebarLayoutContent: React.FC<SidebarLayoutProps> = ({ children, user, ti
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
+
+  // Listen for query params to show cross-page success toasts
+  useEffect(() => {
+    const deletedParam = searchParams.get("deleted");
+    if (deletedParam === "true") {
+      setToastMessage({ msg: "Project deleted successfully!", type: "success" });
+      
+      const params = new URLSearchParams(window.location.search);
+      params.delete("deleted");
+      const search = params.toString();
+      router.replace(`${pathname}${search ? `?${search}` : ""}`);
+    }
+  }, [searchParams, pathname, router]);
 
   const openCreateProject = () => {
     const params = new URLSearchParams(searchParams.toString());
@@ -158,7 +173,18 @@ const SidebarLayoutContent: React.FC<SidebarLayoutProps> = ({ children, user, ti
       </div>
 
       {isCreateProjectOpen && (
-        <CreateProjectModal onClose={closeCreateProject} />
+        <CreateProjectModal 
+          onClose={closeCreateProject} 
+          onSuccess={() => setToastMessage({ msg: "Project created successfully!", type: "success" })}
+        />
+      )}
+
+      {toastMessage && (
+        <Toast 
+          message={toastMessage.msg} 
+          type={toastMessage.type} 
+          onClose={() => setToastMessage(null)} 
+        />
       )}
     </div>
   );
