@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { LoginForm } from "../LoginForm";
 
 // Mock next/navigation
@@ -44,7 +44,12 @@ describe("LoginForm Component", () => {
     // Submit
     fireEvent.click(submitButton);
 
-    // Expect loading state on button (spinner svg or disabled state should appear)
+    // Expect loading state immediately after click
     expect(submitButton).toBeDisabled();
+
+    // Wait for the async login to finish and the component to settle
+    await waitFor(() => {
+      expect(submitButton).not.toBeDisabled();
+    });
   });
 });

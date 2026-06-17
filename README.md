@@ -18,15 +18,34 @@ A premium, production-ready, domain-driven Task Board application built with Dja
 
 ---
 
+## Prerequisites
+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop) installed and running.
+- [Git](https://git-scm.com/) installed.
+
+---
+
 ## Setup & Execution
 
-### 1. Build and Run the Containers
+### 1. Environment Variables
+Copy the provided `.env.example` file to create your local `.env`:
+```bash
+cp .env.example .env
+```
+Ensure all required environment variables are set before starting the application.
+
+### 2. Build and Run the Containers
 To construct the docker images and launch the application services (PostgreSQL, Django, Next.js, Nginx), run:
 
 ```bash
 docker compose up --build
 ```
 *Note: The database is automatically seeded and migrations are executed before startup.*
+
+### 3. Default Credentials
+The application is pre-seeded with the following users for testing purposes:
+- **User 1:** `demo@smartnsales.com` | Password: `password123`
+- **User 2:** `jane@smartnsales.com` | Password: `password123`
 
 To run in the background (detached mode):
 ```bash
@@ -42,11 +61,11 @@ docker compose down
 ---
 
 ## Architecture Map
-- **Nginx Entrypoint**: Accessible locally at `http://localhost/` (routes traffic to Next.js and forwards `/api/` requests to Django).
+- **Nginx Entrypoint**: Accessible locally at `http://localhost/` (routes traffic to Next.js and forwards `/api/` requests to Django). Please access the app via `http://localhost/`, NOT port 3000.
 - **Backend (Django)**: Port `8000` inside the network.
-- **Swagger API Docs**: Available at `http://localhost/api/docs/`
+- **Redoc API Docs**: Available at `http://localhost/api/redoc/`
 - **PostgreSQL Database**: Port `5432` inside the network.
-- **Frontend (Next.js)**: Runs inside Next.js dev server on port `3000`.
+- **Frontend (Next.js)**: Port `3000` inside the network.
 
 ---
 
